@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../../Cherwell/Cherwell SQL Queries"
+		}
+	],
+	"settings": {
+		"notebook.collapseBookItems": true,
+		"notebookExplorerSearch.collapseResults": "alwaysCollapse"
+	}
+}
