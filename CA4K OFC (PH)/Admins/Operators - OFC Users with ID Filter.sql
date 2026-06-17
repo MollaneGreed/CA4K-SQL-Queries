@@ -9,7 +9,7 @@ SELECT
       ,O.[EventCount]
       ,O.[LastOperator]
       ,O.[LastLoginAttemptDt]
-      ,O.OperatorID
+      ,O.[OperatorID]
   FROM [CardAccessLiveConfigurationPH].[dbo].[Operators] AS O
   LEFT JOIN [CardAccessLiveConfigurationPH].[dbo].[Roles] as R on O.[RoleID] = R.[RoleID]
   -- Use the following section to display return the operator based on the ID.

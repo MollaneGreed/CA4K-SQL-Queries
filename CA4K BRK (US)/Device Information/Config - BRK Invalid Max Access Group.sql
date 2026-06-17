@@ -16,7 +16,7 @@ SELECT
 ,[PanelName] 'Panel Name'
 ,[AGSize] 'Max Access Groups'
 FROM [CardAccessLiveConfigurationUS].[dbo].[Panel]
-WHERE [AGSize] <> @AgrpNo
+WHERE [AGSize] < @AgrpNo
 ;
 
 -- Update all Panels to use the stored value
@@ -24,7 +24,7 @@ WHERE [AGSize] <> @AgrpNo
 UPDATE [CardAccessLiveConfigurationPH].[dbo].[Panel]
 SET [AGSize] = @AgrpNo
 WHERE [AGSize] <> @AgrpNo
-;*/
+;
 
 -- Search to display all panels to validate their max access group size
 SELECT
@@ -32,3 +32,4 @@ SELECT
 ,[PanelName] 'Panel Name'
 ,[AGSize] 'Max Access Groups'
 FROM [CardAccessLiveConfigurationUS].[dbo].[Panel]
+*/

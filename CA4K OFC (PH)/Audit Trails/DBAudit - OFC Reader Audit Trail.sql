@@ -2,8 +2,8 @@
 DECLARE 
         --@Start DATE = DATEADD(DAY, -2, GETUTCDATE()),
         --@Start DATE = DATEADD(YEAR, -1, GETUTCDATE()),
-        @Start DATETIME = '2026-01-01',
-        @End DATETIME = '2026-02-17',
+        @Start DATETIME = '2026-06-09',
+        @End DATETIME = '2026-06-11',
         @Start2 DATETIME = '2026-02-07',
         @End2 DATETIME = '2026-02-11',
         --@End DATE = DATEADD(DAY, 1, GETUTCDATE()),
@@ -120,22 +120,22 @@ SELECT
    -- Original Format Get the Old Data and format it as 00-00-00 for 'Old Inp-Byp-Str'
       --SUBSTRING(OldData, CHARINDEX('Sensor="', OldData) + 8, 2) + '-' + SUBSTRING(OldData, CHARINDEX('Bypass="', OldData) + 8, 2) + '-' + SUBSTRING(OldData, CHARINDEX('Strike="', OldData) + 8, 2) 'Old Inp-Byp-Str',  
    -- Get the Old Data and format it as 00-00-00 for 'Old Inp-Byp-Str'
-  ,RIGHT('00' + SUBSTRING(OldData, CHARINDEX('Sensor="', OldData) + 8, CHARINDEX('"', OldData, CHARINDEX('Sensor="', OldData) + 8) - (CHARINDEX('Sensor="', OldData) + 8)), 2) + '-' +
+    ,RIGHT('00' + SUBSTRING(OldData, CHARINDEX('Sensor="', OldData) + 8, CHARINDEX('"', OldData, CHARINDEX('Sensor="', OldData) + 8) - (CHARINDEX('Sensor="', OldData) + 8)), 2) + '-' +
     RIGHT('00' + SUBSTRING(OldData, CHARINDEX('Bypass="', OldData) + 8, CHARINDEX('"', OldData, CHARINDEX('Bypass="', OldData) + 8) - (CHARINDEX('Bypass="', OldData) + 8)), 2) + '-' +
     RIGHT('00' + SUBSTRING(OldData, CHARINDEX('Strike="', OldData) + 8, CHARINDEX('"', OldData, CHARINDEX('Strike="', OldData) + 8) - (CHARINDEX('Strike="', OldData) + 8)), 2) 'Old Inp-Byp-Str'
    -- Original Format Get the New Data and format it as 00-00-00 for 'New Inp-Byp-Str'
       --SUBSTRING(NewData, CHARINDEX('Sensor="', NewData) + 8, 2) + '-' + SUBSTRING(NewData, CHARINDEX('Bypass="', NewData) + 8, 2) + '-' + SUBSTRING(NewData, CHARINDEX('Strike="', NewData) + 8, 2) 'New Inp-Byp-Str',
    -- Get the New Data and format it as 00-00-00 for 'New Inp-Byp-Str'
-  ,RIGHT('00' + SUBSTRING(NewData, CHARINDEX('Sensor="', NewData) + 8, CHARINDEX('"', NewData, CHARINDEX('Sensor="', NewData) + 8) - (CHARINDEX('Sensor="', NewData) + 8)), 2) + '-' +
+    ,RIGHT('00' + SUBSTRING(NewData, CHARINDEX('Sensor="', NewData) + 8, CHARINDEX('"', NewData, CHARINDEX('Sensor="', NewData) + 8) - (CHARINDEX('Sensor="', NewData) + 8)), 2) + '-' +
     RIGHT('00' + SUBSTRING(NewData, CHARINDEX('Bypass="', NewData) + 8, CHARINDEX('"', NewData, CHARINDEX('Bypass="', NewData) + 8) - (CHARINDEX('Bypass="', NewData) + 8)), 2) + '-' +
     RIGHT('00' + SUBSTRING(NewData, CHARINDEX('Strike="', NewData) + 8, CHARINDEX('"', NewData, CHARINDEX('Strike="', NewData) + 8) - (CHARINDEX('Strike="', NewData) + 8)), 2) 'New Inp-Byp-Str'
   ,[RevisionStamp]
   ,DATEADD(HH,-5, RevisionStamp) 'EDAte -5'
   ,[Ca4kdb]
-  --,[TableName]
-  --,[ChangedColumns]
-  --,[OldData]
-  --,[NewData]
+    --,[TableName]
+    --,[ChangedColumns]
+    ,[OldData]
+    ,[NewData]
 
 FROM CombinedData
   WHERE [OperatorName] <> 'cic'

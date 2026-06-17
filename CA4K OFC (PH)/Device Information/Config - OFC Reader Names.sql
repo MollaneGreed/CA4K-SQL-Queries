@@ -32,5 +32,7 @@ FROM [CardAccessLiveConfigurationPH].[dbo].[Reader] AS r
     LEFT JOIN [CardAccessLiveConfigurationPH].[dbo].[APBAreas] AS apb_out ON apb_out.[AreaNo] = r.[APBExit]
     --WHERE r.[PnlRef] = 15
     --AND r.[NoOTL] = 0
-    WHERE r.[ReaderName] LIKE 'OFC 07F 83037 TRAINING HUB IN'
-ORDER BY r.[ReaderName];
+    WHERE r.[ReaderName] LIKE '%83060%'
+    -- OR r.[ReaderName] LIKE '%83060%'
+    -- OR r.[ReaderName] LIKE '%83063%'
+--ORDER BY r.[ReaderName];

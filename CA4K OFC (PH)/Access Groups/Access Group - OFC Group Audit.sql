@@ -11,6 +11,6 @@ SELECT
   FROM [CardAccessLiveConfigurationPH].[dbo].[MAccGrp] AS mag
     LEFT JOIN [CardAccessarchiveConfigurationPH].[dbo].[Operators] AS o on mag.[LastOperator] = o.[OperatorID]
   --LEFT JOIN [CardAccessLiveConfigurationPH].[dbo].[AccGrp] AS ag ON ag.Agno = mag.AgrpNo
-  WHERE mag.Description = 'AG-CAPHI-WPE'
+  --WHERE mag.Description = 'AG-CAPHI-WPE'
 ORDER BY AgrpNo ASC
   

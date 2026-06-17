@@ -1,5 +1,5 @@
 DECLARE
-    @Start DATE = DATEADD(DAY, -29, GETDATE())
+    @Start DATE = DATEADD(DAY, -7, GETDATE())
     --@Start DATE = '2026-04-02'
     ,@End DATE = DATEADD(DAY, 0, GETDATE())
     --,@End DATE = '2026-03-18'
@@ -16,6 +16,7 @@ WITH ArchiveEvents AS (
     WHERE [EDate] BETWEEN @Start AND @End
     AND [Class] = 'SCRIPT EXECUTED'
     AND (@DeviceFilter <> 'True' OR [Description] LIKE '%' + @Device + '%')
+    AND [Description] NOT LIKE '%alid Badges'
 UNION ALL
     SELECT
     [Class]
@@ -24,6 +25,7 @@ UNION ALL
     WHERE [EDate] BETWEEN @Start AND @End
     AND [Class] = 'SCRIPT EXECUTED'
     AND (@DeviceFilter <> 'True' OR [Description] LIKE '%' + @Device + '%')
+    AND [Description] NOT LIKE '%alid Badges'
 UNION ALL
 	SELECT
     [Class]
@@ -32,6 +34,7 @@ UNION ALL
     WHERE [EDate] BETWEEN @Start AND @End
     AND [Class] = 'SCRIPT EXECUTED'
     AND (@DeviceFilter <> 'True' OR [Description] LIKE '%' + @Device + '%')
+    AND [Description] NOT LIKE '%alid Badges'
     )
 
 SELECT

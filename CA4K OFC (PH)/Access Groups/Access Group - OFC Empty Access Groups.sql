@@ -1,16 +1,14 @@
 -- Run on the SQL Server
--- Once complete Export as 'EmptyAccessGroups.csv' to 'C:\temp'. 
+-- Once complete Export as 'EmptyAccessGroups.csv' to '\\afnbrkca4kapp2\temp\AccessGroupVerification'. 
 -- There is a PowerShell Script that can be run to verify the group existance and members in AD.
 SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED
 SELECT DISTINCT
-  mag.[AgrpNo] AS 'Group#',
+  mag.[AccessGroupNo] AS 'Group#',
   mag.[Description] AS 'Group Name'
-  --,ag.[LastUpdated] AS 'Last Updated'
-  FROM [CardAccessLiveConfigurationPH].[dbo].[MAccGrp] AS mag
-  --LEFT JOIN [CardAccessLiveConfigurationPH].[dbo].[AccGrp] AS ag ON ag.Agno = mag.AgrpNo
-  WHERE AgrpNo NOT IN
+  FROM [CardAccessLiveConfigurationPH].[dbo].[ca_vw_AccessGroupsGetForParam] AS mag
+  WHERE mag.AccessGroupNo NOT IN
     (SELECT DISTINCT
        b.AGroupNo
-		FROM [CardAccessLiveConfigurationPH].[dbo].[BadgeAccess] AS b
+		FROM [CardAccessLiveConfigurationPH].[dbo].[ca_vw_BadgeAccessList] AS b
     )
-ORDER BY AgrpNo ASC
+ORDER BY AccessGroupNo ASC

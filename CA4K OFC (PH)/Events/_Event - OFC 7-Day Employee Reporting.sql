@@ -2,11 +2,11 @@
 
 DECLARE 
     @EmployeeIDFilter varchar(10) = 'True',
-    @EmployeeID VARCHAR(10)= '9021048',
+    @EmployeeID VARCHAR(10)= '9047976',
     @DeviceFilter varchar(10) = 'False',
     @Device varchar(10) = '85088';
 DECLARE -- Set the start date
-    @StartDate DATE = '2026-4-15';
+    @StartDate DATE = '2026-5-7';
 DECLARE -- Do not change the following values they must be setup as individual declares in order to be referenced
     @Start DATETIMEOFFSET = CAST(@StartDate AS DATETIME) AT TIME ZONE 'Singapore Standard Time';
 DECLARE -- Do not change the following values they must be setup as an isolated declare
@@ -63,7 +63,7 @@ SELECT
     --([EDate] AT TIME ZONE 'UTC') AT TIME ZONE 'Central Standard Time' AS 'EDate as CST',
     --([EDate] AT TIME ZONE 'UTC') AT TIME ZONE 'Singapore Standard Time' AS 'EDate as SST',
     --DATEADD(MINUTE, [UTCOffset], [EDate]) AS 'Date CST (UTC -7hrs )',
-    --[Class] 'Event Type',
+    [Class] 'Event Type',
     [Description] + ' (' + convert(varchar, [Badge] )  + ')' AS 'Event Source',
     [Name] 'Event Location',
     DATEADD(HOUR, -7, [AckTStamp]) AS 'Acknowledged (UTC -7hrs)'

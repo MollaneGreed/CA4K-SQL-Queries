@@ -6,8 +6,8 @@ SELECT
     COUNT(Distinct [AckTStamp]) AS 'Unique Events',
     MIN([EDate] AT TIME ZONE 'UTC' AT TIME ZONE 'Central Standard Time') AS 'First Event CST',
     MAX([EDate] AT TIME ZONE 'UTC' AT TIME ZONE 'Central Standard Time') AS 'Last Event CST'
-FROM [CardAccessLiveEventsPH].[dbo].[Event]
-WHERE [EDate] BETWEEN DATEADD(DAY, -1, CAST(GETDATE() AS DATE)) AND DATEADD(DAY, 1, CAST(GETDATE() AS DATE))
+FROM [CardAccessLiveEventsUS].[dbo].[Event]
+WHERE [EDate] BETWEEN DATEADD(DAY, -10, CAST(GETDATE() AS DATE)) AND DATEADD(DAY, 1, CAST(GETDATE() AS DATE))
     AND [Class] LIKE 'BADGE Violate Void at Panel%'
 GROUP BY [Name]
 ORDER BY 'Unique Events' DESC;
@@ -18,7 +18,8 @@ SELECT TOP 10
     [CLASS],
     [Name] 'Event Location',
     [Description]
-FROM [CardAccessLiveEventsPH].[dbo].[Event]
-WHERE [EDate] BETWEEN DATEADD(DAY, -1, CAST(GETDATE() AS DATE)) AND DATEADD(DAY, 1, CAST(GETDATE() AS DATE))
+FROM [CardAccessLiveEventsUS].[dbo].[Event]
+WHERE [EDate] BETWEEN DATEADD(DAY, -10, CAST(GETDATE() AS DATE)) AND DATEADD(DAY, 1, CAST(GETDATE() AS DATE))
     AND [Class] LIKE 'BADGE Violate Void at Panel%'
 ORDER BY [EDATE] DESC
+

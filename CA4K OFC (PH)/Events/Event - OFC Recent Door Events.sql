@@ -16,6 +16,8 @@ SELECT
     ,DATEADD(HH,-5, [EDate]) 'EDate -5'
 FROM [CardAccessLiveEventsPH].[dbo].[Event]
 WHERE [EDate] BETWEEN DATEADD(DAY, -1, CAST(GETDATE() AS DATE)) AND DATEADD(DAY, 1, CAST(GETDATE() AS DATE))
-    AND [Description] LIKE '%' + @Door + '%'
-    OR [Name] LIKE '%' + @Door + '%'
+    AND [PnlNo] = '12'
+    AND [DeviceNo] IN (7,8,11,12)
+    --AND [Description] LIKE '%' + @Door + '%'
+    --OR [Name] LIKE '%' + @Door + '%'
 ORDER BY [EDate] DESC

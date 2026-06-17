@@ -1,6 +1,12 @@
 -- Automation that will clear the destination table and populate it with the source.
 
-DECLARE @CurrentTable SYSNAME = 'BuildInfo';  -- <<< CHANGE THIS ONLY
+
+--- Update These Values ---
+DECLARE @CurrentTable SYSNAME = 'MAccGrp',
+        @SourceDB NVARCHAR(MAX) = 'CardAccessArchiveConfigurationPH',
+        @DestinationDB NVARCHAR(MAX) = 'CardAccessLiveConfigurationPH'
+;
+
 
 DECLARE
     @HasIdentity BIT,
@@ -13,8 +19,8 @@ DECLARE
 --------------------------------------------------
 SELECT @HasIdentity = CASE WHEN EXISTS (
     SELECT 1
-    FROM CardAccessLiveConfigurationPH_Test.sys.columns TestCol
-    JOIN CardAccessLiveConfigurationPH_Test.sys.tables TestTab
+    FROM CardAccessLiveConfigurationPH.sys.columns TestCol
+    JOIN CardAccessLiveConfigurationPH.sys.tables TestTab
         ON TestCol.object_id = TestTab.object_id
     WHERE TestTab.name = @CurrentTable
       AND TestCol.is_identity = 1
@@ -26,8 +32,8 @@ SELECT @HasIdentity = CASE WHEN EXISTS (
 SELECT @ColumnList =
     STRING_AGG(QUOTENAME(TestCol.name), ', ')
     WITHIN GROUP (ORDER BY TestCol.column_id)
-FROM CardAccessLiveConfigurationPH_Test.sys.columns TestCol
-JOIN CardAccessLiveConfigurationPH_Test.sys.tables TestTab
+FROM CardAccessLiveConfigurationPH.sys.columns TestCol
+JOIN CardAccessLiveConfigurationPH.sys.tables TestTab
     ON TestCol.object_id = TestTab.object_id
 WHERE TestTab.name = @CurrentTable;
 
@@ -35,20 +41,20 @@ WHERE TestTab.name = @CurrentTable;
 -- 3. Build full migration script
 --------------------------------------------------
 SET @SQL = N'
-DELETE FROM CardAccessLiveConfigurationPH_Test.dbo.' + QUOTENAME(@CurrentTable) + ';
+DELETE FROM' + QUOTENAME(@SourceDB) + '.dbo.' + QUOTENAME(@CurrentTable) + ';
 
 ' + CASE WHEN @HasIdentity = 1 THEN
-    'SET IDENTITY_INSERT CardAccessLiveConfigurationPH_Test.dbo.' + QUOTENAME(@CurrentTable) + ' ON;'
+    'SET IDENTITY_INSERT ' + QUOTENAME(@DestinationDB) + '.dbo.' + QUOTENAME(@CurrentTable) + ' ON;'
     ELSE '' END + '
 
-INSERT INTO CardAccessLiveConfigurationPH_Test.dbo.' + QUOTENAME(@CurrentTable) + '
+INSERT INTO ' + QUOTENAME(@DestinationDB) + '.dbo.' + QUOTENAME(@CurrentTable) + '
 (' + @ColumnList + ')
 SELECT
 ' + @ColumnList + '
-FROM CardAccessLiveConfigurationPH.dbo.' + QUOTENAME(@CurrentTable) + ';
+FROM ' + QUOTENAME(@SourceDB) + '.dbo.' + QUOTENAME(@CurrentTable) + ';
 
 ' + CASE WHEN @HasIdentity = 1 THEN
-    'SET IDENTITY_INSERT CardAccessLiveConfigurationPH_Test.dbo.' + QUOTENAME(@CurrentTable) + ' OFF;'
+    'SET IDENTITY_INSERT ' + QUOTENAME(@DestinationDB) + '.dbo.' + QUOTENAME(@CurrentTable) + ' OFF;'
     ELSE '' END;
 
 --------------------------------------------------
@@ -56,11 +62,11 @@ FROM CardAccessLiveConfigurationPH.dbo.' + QUOTENAME(@CurrentTable) + ';
 --------------------------------------------------
 EXEC sp_executesql @SQL;
 
--- The following places the entire query into the @SQL variable and then executes it at the end.
+-- The following creates a query that will display the two tables after @SQL2.
 SET @SQL2 = N'
-SELECT TOP (3) *
-FROM CardAccessLiveConfigurationPH_Test.dbo.' + QUOTENAME(@CurrentTable) + N';
-SELECT TOP (3) *
-FROM CardAccessLiveConfigurationPH.dbo.' + QUOTENAME(@CurrentTable) + N';
+SELECT TOP (20) *
+FROM ' + QUOTENAME(@DestinationDB) + '.dbo.' + QUOTENAME(@CurrentTable) + N';
+SELECT TOP (20) *
+FROM ' + QUOTENAME(@SourceDB) + '.dbo.' + QUOTENAME(@CurrentTable) + N';
 ';
 EXEC sp_executesql @SQL2;

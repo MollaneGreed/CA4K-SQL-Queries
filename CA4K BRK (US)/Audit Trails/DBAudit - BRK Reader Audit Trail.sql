@@ -1,5 +1,5 @@
 -- Run on SQL server
-DECLARE @Start DATE = DATEADD(DAY, -1, GETUTCDATE()),
+DECLARE @Start DATE = DATEADD(DAY, -90, GETUTCDATE()),
         @End DATE = DATEADD(DAY, +1, GETUTCDATE()),
         @DeviceFilter varchar(10) = 'false',
         @Device varchar(10) = '8601%';
@@ -17,7 +17,7 @@ WITH CombinedData AS (
       CONVERT(VARCHAR(MAX), [OldData]) AS OldData,
       CONVERT(VARCHAR(MAX), [NewData]) AS NewData,
       [CA4KDB] ='01 - Live Events'
-      FROM [CardAccessLiveEventsMX].[dbo].[DBAudit]
+      FROM [CardAccessliveeventsUS].[dbo].[DBAudit]
         WHERE [Actions] IN ('U','D','I')
         AND TableName IN ('Reader')
         AND (@DeviceFilter <> 'True' OR [Description] LIKE '%' + @Device + '%')
@@ -35,7 +35,7 @@ WITH CombinedData AS (
       CONVERT(VARCHAR(MAX), [OldData]) AS OldData,
       CONVERT(VARCHAR(MAX), [NewData]) AS NewData,
      [CA4KDB] = '02 - Live Config'
-      FROM [CardAccessLiveConfigurationsMX].[dbo].[DBAudit]
+      FROM [CardAccessliveConfigurationUS].[dbo].[DBAudit]
         WHERE [Actions] IN ('U','D','I')
         AND TableName IN ('Reader')
         AND (@DeviceFilter <> 'True' OR [Description] LIKE '%' + @Device + '%')
@@ -53,7 +53,7 @@ WITH CombinedData AS (
       CONVERT(VARCHAR(MAX), [OldData]) AS OldData,
       CONVERT(VARCHAR(MAX), [NewData]) AS NewData,
       [CA4KDB] ='03 - Archive Events'
-      FROM [CardAccessArchiveEventsMX].[dbo].[DBAudit]
+      FROM [CardAccessarchiveeventsUS].[dbo].[DBAudit]
         WHERE [Actions] IN ('U','D','I')
         AND TableName IN ('Reader')
         AND (@DeviceFilter <> 'True' OR [Description] LIKE '%' + @Device + '%')
@@ -71,7 +71,7 @@ WITH CombinedData AS (
       CONVERT(VARCHAR(MAX), [OldData]) AS OldData,
       CONVERT(VARCHAR(MAX), [NewData]) AS NewData,
       [CA4KDB] ='04 - Archive Config'
-      FROM [CardAccessarchiveConfigurationMX].[dbo].[DBAudit]
+      FROM [CardAccessarchiveConfigurationUS].[dbo].[DBAudit]
         WHERE [Actions] IN ('U','D','I')
         AND TableName IN ('Reader')
         AND (@DeviceFilter <> 'True' OR [Description] LIKE '%' + @Device + '%')
@@ -89,7 +89,7 @@ WITH CombinedData AS (
       CONVERT(VARCHAR(MAX), [OldData]) AS OldData,
       CONVERT(VARCHAR(MAX), [NewData]) AS NewData,
       [CA4KDB] ='05 - Archive Events 2'
-      FROM [CardAccessarchiveeventsMX_2].[dbo].[DBAudit]
+      FROM [CardAccessarchiveeventsUS_2].[dbo].[DBAudit]
         WHERE [Actions] IN ('U','D','I')
         AND TableName IN ('Reader')
         AND (@DeviceFilter <> 'True' OR [Description] LIKE '%' + @Device + '%')

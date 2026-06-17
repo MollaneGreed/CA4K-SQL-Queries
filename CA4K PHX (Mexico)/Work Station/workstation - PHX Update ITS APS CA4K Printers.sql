@@ -5,8 +5,7 @@ SET [UsePrinting] = '1'
 ,[UseBadging] = '1'
 ,[Badgingoption] = '1'
 ,[EventPrinter] = 'Microsoft Print to PDF'
-WHERE WorkstationName LIKE 'ITS-APS-%'
-AND ([EventPrn] <> 'Microsoft Print to PDF' OR [EventPrinter] <> 'Microsoft Print to PDF')
+WHERE [EventPrn] <> 'Microsoft Print to PDF' OR [EventPrinter] <> 'Microsoft Print to PDF'
 ;
 
 SELECT
@@ -18,5 +17,4 @@ SELECT
     ,[Badgingoption]
     ,[EventPrinter]
 FROM [CardAccessLiveConfigurationsMX].[dbo].[WorkstationSettings]
-WHERE WorkstationName LIKE 'ITS-APS-%'
 ;
