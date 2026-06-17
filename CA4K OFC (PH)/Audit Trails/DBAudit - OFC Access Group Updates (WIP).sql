@@ -2,7 +2,16 @@
 DECLARE @StartDate DATE = '2025-07-11',
         @DaysBack INT = 20,
         @SearchFilter varchar(10) = 'true',
-        @DescriptionFilter VARCHAR(100) = '';
+        @DescriptionFilter VARCHAR(100) = '',
+        @Databases TABLE (DBName NVARCHAR(100));
+
+-- List of databases to query
+INSERT INTO @Databases (DBName)
+VALUES
+('CardAccessliveConfigurationPH'),
+('CardAccessarchiveeventsPH'),
+('CardAccessarchiveConfigurationPH'),
+('CardAccessarchiveeventsPH_2');
 
 -- Do not change the following values
 DECLARE @Start DATETIMEOFFSET = CAST(@StartDate AS DATETIME) AT TIME ZONE 'Singapore Standard Time';

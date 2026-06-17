@@ -1,32 +1,24 @@
 -- Date Filters
   -- Set the target date
-    DECLARE @TargetDate DATE = '2025-07-18';
-  -- Set how far back or forward to search. Add or remove the (-) to search forward or backwards from the Target Date.
-    DECLARE @DaysBack INT = -14
+    DECLARE 
+      @TargetDate DATE = '2025-07-18',
+      @DaysBack INT = -14
 
 -- Enable Content Filters
-  -- Discription filter True'/'False'
-    DECLARE @DescriptionFilter varchar(5) = 'True';
-  -- Operator filter True'/'False'
-    DECLARE @OperatorFilter varchar(5) = 'False';
-  -- Filter out UserField changes 'True'/'False'
-    DECLARE @TableNameFilter varchar(5) = 'True';
+    DECLARE 
+      @DescriptionFilter varchar(5) = 'False',
+      @OperatorFilter varchar(5) = 'False',
+      @TableNameFilter varchar(5) = 'False';
 
--- Filter Details
-  -- Set Description Filter
-    DECLARE @Description VARCHAR(100) = '9000047';
-  -- Set Operator Filter
-    DECLARE @Operator VARCHAR(100) = 'AndieButac';
+-- Details Filter 
+    DECLARE 
+      @DescriptionText VARCHAR(100) = '',
+      @OperatorName VARCHAR(100) = '';
         
 -- Do not change the following variables for Start and End Dates.
-  -- Start at 00:00:00 on the target day minus days back, in Singapore time
-    DECLARE @Start DATETIMEOFFSET = 
-        CAST(DATEADD(DAY, @DaysBack, @TargetDate) AS DATETIME) 
-        AT TIME ZONE 'Singapore Standard Time';
-  -- End at 23:59:00 on the same day, using MINUTES for clarity
-    DECLARE @End DATETIMEOFFSET = 
-        DATEADD(MINUTE, 1439, CAST(@TargetDate AS DATETIME)) 
-        AT TIME ZONE 'Singapore Standard Time';
+    DECLARE 
+      @Start DATETIMEOFFSET = CAST(DATEADD(DAY, @DaysBack, @TargetDate) AS DATETIME) AT TIME ZONE 'Singapore Standard Time',
+      @End DATETIMEOFFSET = DATEADD(MINUTE, 1439, CAST(@TargetDate AS DATETIME)) AT TIME ZONE 'Singapore Standard Time';
 
 WITH CombinedData AS (
 -- Live Config  
@@ -44,8 +36,8 @@ WITH CombinedData AS (
     FROM [CardAccessliveConfigurationPH].[dbo].[DBAudit]
       WHERE [Actions] IN ('U','D','I')
       AND [RevisionStamp] BETWEEN @Start AND @End
-      AND (@DescriptionFilter <> 'True' OR [Description] LIKE '%' + @Description + '%')
-      AND (@OperatorFilter <> 'True' OR [OperatorName] LIKE '%' + @Operator + '%')
+      AND (@DescriptionFilter <> 'True' OR [Description] LIKE '%' + @DescriptionText + '%')
+      AND (@OperatorFilter <> 'True' OR [OperatorName] LIKE '%' + @OperatorName + '%')
       AND (@TableNameFilter <> 'True' OR [TableName] != 'UserFields')
 -- Archive Events
   UNION ALL
@@ -63,8 +55,8 @@ WITH CombinedData AS (
   FROM [CardAccessarchiveeventsPH].[dbo].[DBAudit]
     WHERE [Actions] IN ('U','D','I')
     AND [RevisionStamp] BETWEEN @Start AND @End
-    AND (@DescriptionFilter <> 'True' OR [Description] LIKE '%' + @Description + '%')
-    AND (@OperatorFilter <> 'True' OR [OperatorName] LIKE '%' + @Operator + '%')
+    AND (@DescriptionFilter <> 'True' OR [Description] LIKE '%' + @DescriptionText + '%')
+    AND (@OperatorFilter <> 'True' OR [OperatorName] LIKE '%' + @OperatorName + '%')
       AND (@TableNameFilter <> 'True' OR [TableName] != 'UserFields')
 -- Archive Config
   UNION ALL
@@ -82,8 +74,8 @@ WITH CombinedData AS (
   FROM [CardAccessarchiveConfigurationPH].[dbo].[DBAudit]
     WHERE [Actions] IN ('U','D','I')
     AND [RevisionStamp] BETWEEN @Start AND @End
-    AND (@DescriptionFilter <> 'True' OR [Description] LIKE '%' + @Description + '%')
-    AND (@OperatorFilter <> 'True' OR [OperatorName] LIKE '%' + @Operator + '%')
+    AND (@DescriptionFilter <> 'True' OR [Description] LIKE '%' + @DescriptionText + '%')
+    AND (@OperatorFilter <> 'True' OR [OperatorName] LIKE '%' + @OperatorName + '%')
     AND (@TableNameFilter <> 'True' OR [TableName] != 'UserFields')
 -- Archive Events_2
   UNION ALL
@@ -101,8 +93,8 @@ WITH CombinedData AS (
   FROM [CardAccessarchiveeventsPH_2].[dbo].[DBAudit]
     WHERE [Actions] IN ('U','D','I')
     AND [RevisionStamp] BETWEEN @Start AND @End
-    AND (@DescriptionFilter <> 'True' OR [Description] LIKE '%' + @Description + '%')
-    AND (@OperatorFilter <> 'True' OR [OperatorName] LIKE '%' + @Operator + '%')
+    AND (@DescriptionFilter <> 'True' OR [Description] LIKE '%' + @DescriptionText + '%')
+    AND (@OperatorFilter <> 'True' OR [OperatorName] LIKE '%' + @OperatorName + '%')
     AND (@TableNameFilter <> 'True' OR [TableName] != 'UserFields')
 )
 SELECT
@@ -132,7 +124,7 @@ SELECT
 FROM CombinedData AS cd
  LEFT JOIN [CardAccessarchiveConfigurationPH].[dbo].[Operators] AS o on cd.[OperatorName] = o.[OperLoginName]
  LEFT JOIN [CardAccessliveConfigurationPH].[dbo].[Roles] as r on o.[RoleID] = r.[RoleID]
-  -- WHERE (@DescriptionFilter <> 'True' OR [Description] LIKE '%' + @Description + '%')
+  -- WHERE (@DescriptionFilter <> 'True' OR [Description] LIKE '%' + @DescriptionText + '%')
   -- AND [TableName] != 'UserFields'
   -- WHERE [TableName] != 'UserFields'
   -- AND [Actions] = 'U'

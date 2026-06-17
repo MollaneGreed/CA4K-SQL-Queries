@@ -1,0 +1,24 @@
+# This is a collection of files and folders that should be ignored by Git.
+# You can add any files or directories that you don't want to track in this file.
+
+# Folders
+
+
+# Files
+
+
+# File Formats
+**/*.ipynb
+**/*.7Z
+**/*.code-workspace
+**/*.xlsx
+**/*.xls
+**/*.csv
+**/*.pdf
+**/*.docx
+**/*.doc
+**/*.pptx
+**/*.ppt
+**/*.odt
+**/*.ods
+**/*.log
