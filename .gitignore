@@ -6,6 +6,7 @@ Originals
 
 # Files
 .environments.md
+.gitignore
 
 # File Formats
 **/*.ipynb
