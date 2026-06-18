@@ -2,10 +2,10 @@
 # You can add any files or directories that you don't want to track in this file.
 
 # Folders
-
+Originals
 
 # Files
-
+.environments.md
 
 # File Formats
 **/*.ipynb
