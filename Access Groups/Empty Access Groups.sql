@@ -11,8 +11,7 @@ SELECT DISTINCT
   WHERE mag.AccessGroupNo NOT IN
     (SELECT DISTINCT
        b.AGroupNo
-		FROM ' + QUOTENAME(@LiveConfigDB) + '.[dbo].[ca_vw_BadgeAccessList] AS b
-    )
+		FROM ' + QUOTENAME(@LiveConfigDB) + '.[dbo].[ca_vw_BadgeAccessList] AS b)
 ORDER BY AccessGroupNo ASC';
 
 EXEC sp_executesql @SQL;

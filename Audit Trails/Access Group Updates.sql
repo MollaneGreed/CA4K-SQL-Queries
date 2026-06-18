@@ -49,8 +49,7 @@ FROM @Databases;
 
 SET @SQL = @SQL + CHAR(10) + N') 
 SELECT TOP (10)
-  DATEADD(HH,-5, cd.[RevisionStamp]) CST_Time,
-  DATEADD(HH,+8, cd.[RevisionStamp]) Manila_Time,
+  cd.[RevisionStamp],
   cd.[TableName],
   cd.[OperatorName],
     CASE
