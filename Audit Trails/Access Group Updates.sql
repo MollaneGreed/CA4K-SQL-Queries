@@ -1,22 +1,22 @@
--- Set the start date
+DECLARE @Databases TABLE (DBName VARCHAR(100));
+
+-- Set the following variables
 DECLARE @StartDate DATE = '2025-07-11',
         @DaysBack INT = 1,
         @SearchFilter varchar(10) = 'false',
         @DescriptionFilter VARCHAR(100) = '',
-        @archiveConfig NVARCHAR(100) = 'Example ArchiveConfigDB',
-        @liveConfig NVARCHAR(100) = 'Example LiveConfigDB';
+        @liveConfig NVARCHAR(100) = 'CardAccessLiveConfigurationPH',
+        @archiveConfig NVARCHAR(100) = 'CardAccessArchiveConfigurationPH';
 
+-- Add your list of databases
+INSERT INTO @Databases (DBName) VALUES
+('CardAccessLiveEventsPH');
+
+---------------------------------------------------------------------------
 -- Do not change the following values
 DECLARE @Start DATETIMEOFFSET = CAST(@StartDate AS DATETIME) AT TIME ZONE 'Singapore Standard Time';
 DECLARE @End DATETIMEOFFSET = DATEADD(SECOND, 86399, DATEADD(DAY, @DaysBack, @Start));
-
--- List of databases to query
-DECLARE @Databases TABLE (DBName VARCHAR(100));
-
-INSERT INTO @Databases (DBName) VALUES
-('Example database1'),
-('Example database2'),
-('Example database3');
+---------------------------------------------------------------------------
 
 -- Setup for dynamic SQL loop
 DECLARE 
