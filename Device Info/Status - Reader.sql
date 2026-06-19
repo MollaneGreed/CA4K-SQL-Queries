@@ -1,7 +1,7 @@
 DECLARE 
   @SQL NVARCHAR(MAX),
   @DeviceFilter NVARCHAR(10) = 'False',
-  @DeviceName NVARCHAR(255) = '',
+  @DeviceName NVARCHAR(255) = ' ',
   @LiveConfigDB NVARCHAR(255) = 'CardAccessLiveConfiguration',
   @LiveEventsDB NVARCHAR(255) = 'CardAccessLiveEvents';
 
