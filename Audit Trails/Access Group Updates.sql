@@ -5,12 +5,12 @@ DECLARE @StartDate DATE = '2025-07-11',
         @DaysBack INT = 1,
         @SearchFilter varchar(10) = 'false',
         @DescriptionFilter VARCHAR(100) = '',
-        @liveConfig NVARCHAR(100) = 'CardAccessLiveConfigurationPH',
-        @archiveConfig NVARCHAR(100) = 'CardAccessArchiveConfigurationPH';
+        @liveConfig NVARCHAR(100) = 'exampleLiveConfig',
+        @archiveConfig NVARCHAR(100) = 'examplearchiveConfig';
 
 -- Add your list of databases
 INSERT INTO @Databases (DBName) VALUES
-('CardAccessLiveEventsPH');
+('exampleDatabase');
 
 ---------------------------------------------------------------------------
 -- Do not change the following values
@@ -48,7 +48,7 @@ SELECT @SQL = @SQL +
 FROM @Databases;
 
 SET @SQL = @SQL + CHAR(10) + N') 
-SELECT TOP (10)
+SELECT
   cd.[RevisionStamp],
   cd.[TableName],
   cd.[OperatorName],
