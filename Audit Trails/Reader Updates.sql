@@ -6,7 +6,7 @@ DECLARE
   @End DATETIME = '2026-06-19',
   @DeviceFilter varchar(10) = 'false',
   @Device varchar(10) = '83034',
-  @liveConfig NVARCHAR(100) = 'ExampleLiveConfiguration';
+  @liveConfig NVARCHAR(100) = 'CardAccessLiveConfiguration';
 
 -- Add your list of databases
 INSERT INTO @Databases (DBName) VALUES

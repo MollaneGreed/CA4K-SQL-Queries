@@ -5,8 +5,8 @@ DECLARE @StartDate DATE = '2025-07-11',
         @DaysBack INT = 1,
         @SearchFilter varchar(10) = 'false',
         @DescriptionFilter VARCHAR(100) = '',
-        @liveConfig NVARCHAR(100) = 'exampleLiveConfig',
-        @archiveConfig NVARCHAR(100) = 'examplearchiveConfig';
+        @liveConfig NVARCHAR(100) = 'CardAccessLiveConfiguration',
+        @archiveConfig NVARCHAR(100) = 'CardAccessArchiveConfiguration';
 
 -- Add your list of databases
 INSERT INTO @Databases (DBName) VALUES

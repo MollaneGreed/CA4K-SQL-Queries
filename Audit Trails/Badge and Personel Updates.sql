@@ -10,8 +10,8 @@ DECLARE
   @TableNameFilter varchar(5) = 'False',
   @DescriptionText VARCHAR(100) = '',
   @OperatorName VARCHAR(100) = '',
-  @liveConfig NVARCHAR(100) = 'exampleLiveConfig',
-  @archiveConfig NVARCHAR(100) = 'exampleArchiveConfig';
+  @liveConfig NVARCHAR(100) = 'CardAccessLiveConfiguration',
+  @archiveConfig NVARCHAR(100) = 'CardAccessArchiveConfiguration';
 
 -- Add your list of databases
 INSERT INTO @Databases (DBName) VALUES

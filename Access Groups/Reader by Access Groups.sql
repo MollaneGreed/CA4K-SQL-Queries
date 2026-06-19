@@ -1,7 +1,7 @@
 -- Set the following variables
 DECLARE 
   @SQL NVARCHAR(MAX),
-  @LiveConfigDB NVARCHAR(255) = 'ExampleLiveConfigDB',
+  @LiveConfigDB NVARCHAR(255) = 'CardAccessLiveConfiguration',
   @AccessGroupFilter NVARCHAR(10) = 'True',
     @AccessGroup NVARCHAR(100) = 'ExampleAccessGroup',
   @ReaderFilter NVARCHAR(10) = 'False',

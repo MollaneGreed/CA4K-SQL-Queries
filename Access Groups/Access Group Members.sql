@@ -1,7 +1,7 @@
 -- Set the variables
 DECLARE
     @SQL NVARCHAR(MAX),
-    @LiveConfigDB NVARCHAR(255) = 'ExampleLiveConfigDB',
+    @LiveConfigDB NVARCHAR(255) = 'CardAccessLiveConfiguration',
     @AccessGroup NVARCHAR(100) = 'ExampleAccessGroup';
 
 ---------------------------------------------------------------------------

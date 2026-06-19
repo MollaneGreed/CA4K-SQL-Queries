@@ -1,7 +1,7 @@
 DECLARE 
   @SQL NVARCHAR(MAX),
-  @LiveConfigDB NVARCHAR(255) = 'Example LiveConfigDB',
-  @ArchiveConfigDB NVARCHAR(255) = 'Example ArchiveConfigDB';
+  @LiveConfigDB NVARCHAR(255) = 'CardAccessLiveConfiguration',
+  @ArchiveConfigDB NVARCHAR(255) = 'CardAccessArchiveConfiguration';
   
 SET @SQL = 
 'SELECT

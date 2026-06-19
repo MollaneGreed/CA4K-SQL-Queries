@@ -1,6 +1,6 @@
 DECLARE 
   @SQL NVARCHAR(MAX),
-  @LiveConfigDB NVARCHAR(255) = 'Example LiveConfigDB';
+  @LiveConfigDB NVARCHAR(255) = 'CardAccessLiveConfiguration';
 
 
 SET @SQL = '
