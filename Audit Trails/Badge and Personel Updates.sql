@@ -76,10 +76,6 @@ SELECT
 FROM CombinedData AS cd
  LEFT JOIN ' + QUOTENAME(@archiveConfig) + N'.[dbo].[Operators] AS o on cd.[OperatorName] = o.[OperLoginName]
  LEFT JOIN ' + QUOTENAME(@liveConfig) + N'.[dbo].[Roles] as r on o.[RoleID] = r.[RoleID]
-  -- WHERE (@DescriptionFilter <> ''True'' OR [Description] LIKE ''%'' + @DescriptionText + ''%'')
-  -- AND [TableName] != ''UserFields''
-  -- WHERE [TableName] != ''UserFields''
-  -- AND [Actions] = ''U''
  ORDER BY cd.[RevisionStamp] DESC';
 
  EXEC sp_executesql
