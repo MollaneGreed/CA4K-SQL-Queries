@@ -6,14 +6,15 @@ DECLARE
   @LiveConfigDB NVARCHAR(255) = 'CardAccessLiveConfiguration',
   @LiveEventsDB NVARCHAR(255) = 'CardAccessLiveEvents';
 
-SET @SQL = 'SELECT 
+SET @SQL = '
+  SELECT 
     S.[Panel] ''Panel #''
     ,P.[PanelName]
     ,convert(varchar, FORMAT(S.[Status], ''00'')) + '' - '' + convert(varchar, sd.[StatusDescription]) ''Status''
     ,S.[SDate] AT TIME ZONE ''UTC'' AT TIME ZONE ''Central Standard Time'' AS [Last Sync (CST)]
     ,S.[Xact] ''Pending Transactions (Xact)''
   FROM ' + QUOTENAME(@LiveEventsDB) + '.[dbo].[Status] S
-  LEFT JOIN ' + QUOTENAME(@LiveConfigDB) + '.[dbo].[Panel] P ON S.Panel = P.PnlNo
+  LEFT JOIN ' + QUOTENAME(@LiveConfigDB) + '.[dbo].[ca_vw_GetPanels] P ON S.[Panel] = P.[PanelNo]
   LEFT JOIN ' + QUOTENAME(@LiveEventsDB) + '.[dbo].[StatusDefs] sd ON sd.[StatusID] = S.[Status]
   Where [state] = 0
   AND (@DeviceFilter = ''FALSE'' OR P.[PanelName] LIKE ''%'' + @DeviceName + ''%'')

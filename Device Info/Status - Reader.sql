@@ -10,12 +10,12 @@ Select
     vwdl.[PanelId] ''Panel #''
     ,vwdl.[DeviceId] ''Device #''
     ,vwdl.[Description]
-    ,r.[Sensor] ''Input Sensor''
+    ,r.[DoorSensor] ''Input Sensor''
     ,convert(varchar, FORMAT(stat.[Status], ''00'')) + '' - '' + convert(varchar, sd.[StatusDescription]) ''Status''
 FROM' + QUOTENAME(@LiveConfigDB) + '.[dbo].[ca_vw_DeviceList] vwdl
 LEFT JOIN' + QUOTENAME(@LiveEventsDB) + '.[dbo].[Status] stat ON stat.[Panel] = vwdl.[PanelId] AND stat.[Device] = vwdl.[DeviceId]
 LEFT JOIN' + QUOTENAME(@LiveEventsDB) + '.[dbo].[StatusDefs] sd ON sd.[StatusID] = stat.[Status]
-LEFT JOIN' + QUOTENAME(@LiveConfigDB) + '.[dbo].[Reader] r ON r.[PnlRef] = vwdl.[PanelId] AND r.[RdrNo] = vwdl.[DeviceId] AND vwdl.[DeviceType] = ''Reader''
+LEFT JOIN' + QUOTENAME(@LiveConfigDB) + '.[dbo].[ca_vw_Reader] r ON r.[PanelId] = vwdl.[PanelId] AND r.[ReaderID] = vwdl.[DeviceId] AND vwdl.[DeviceType] = ''Reader''
 WHERE sd.[StatusDescription] NOT IN (''Disabled'', ''OFF'', ''ON'')
     AND vwdl.[DeviceType] IN (''Reader'')
     AND (@DeviceFilter = ''FALSE'' OR vwdl.[Description] LIKE ''%'' + @DeviceName + ''%'')
