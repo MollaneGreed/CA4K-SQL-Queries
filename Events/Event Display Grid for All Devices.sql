@@ -5,7 +5,7 @@ DECLARE
 DECLARE 
     @SQL NVARCHAR(MAX) = 'WITH CombinedData AS (' + CHAR(10),
     @First BIT = 1,
-    @SearchFilter varchar(10) = 'false',
+    @SearchFilter varchar(10) = 'true',
     @DescriptionFilter VARCHAR(100) = '',
     @PanelFilter varchar(10) = 'false',
     @Panel varchar(10) = '',
@@ -14,9 +14,9 @@ DECLARE
 
 -- Add your list of databases
 INSERT INTO @Databases (DBName) VALUES
-('CardAccessLiveEventsus'),
-('CardAccessArchiveEventsus'),
-('CardAccessArchiveEventsus_2');
+('CardAccessLiveEvents'),
+('CardAccessArchiveEvents'),
+('CardAccessArchiveEvents_2');
 
 -- Setup for dynamic SQL loop
 SELECT @SQL = @SQL +
