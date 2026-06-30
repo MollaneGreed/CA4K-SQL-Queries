@@ -19,7 +19,7 @@ LEFT JOIN' + QUOTENAME(@LiveEventsDB) + '.[dbo].[Status] stat ON stat.[Panel] = 
 LEFT JOIN' + QUOTENAME(@LiveEventsDB) + '.[dbo].[StatusDefs] sd ON sd.[StatusID] = stat.[Status]
 LEFT JOIN' + QUOTENAME(@LiveConfigDB) + '.[dbo].[ca_vw_Reader] r ON r.[PanelId] = vwdl.[PanelId] AND r.[ReaderID] = vwdl.[DeviceId] AND vwdl.[DeviceType] = ''Reader''
 WHERE sd.[StatusDescription] NOT IN (''Disabled'', ''OFF'', ''ON'')
-    AND vwdl.[DeviceType] IN (''Reader'')
+    AND vwdl.[DeviceType] = ''Reader''
     AND (@DeviceFilter = ''FALSE'' OR vwdl.[Description] LIKE ''%'' + @DeviceName + ''%'')
 ORDER BY vwdl.[PanelId], vwdl.[DeviceId]';
 
