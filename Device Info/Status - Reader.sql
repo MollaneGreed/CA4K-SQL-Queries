@@ -11,6 +11,8 @@ Select
     ,vwdl.[DeviceId] ''Device #''
     ,vwdl.[Description]
     ,r.[DoorSensor] ''Input Sensor''
+    ,r.[BypassInput] ''Bypass''
+    ,r.[StrikeRelay] ''Relay''
     ,convert(varchar, FORMAT(stat.[Status], ''00'')) + '' - '' + convert(varchar, sd.[StatusDescription]) ''Status''
 FROM' + QUOTENAME(@LiveConfigDB) + '.[dbo].[ca_vw_DeviceList] vwdl
 LEFT JOIN' + QUOTENAME(@LiveEventsDB) + '.[dbo].[Status] stat ON stat.[Panel] = vwdl.[PanelId] AND stat.[Device] = vwdl.[DeviceId]
