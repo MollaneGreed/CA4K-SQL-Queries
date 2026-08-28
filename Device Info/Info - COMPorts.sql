@@ -1,7 +1,7 @@
 -- Set the following variables
 DECLARE
   @SQL NVARCHAR(MAX),
-  @LiveConfigDB NVARCHAR(255) = 'CardAccessLiveConfigurationPH';
+  @LiveConfigDB NVARCHAR(255) = 'CardAccessLiveConfiguration';
 
 SET @SQL = '
     SELECT TOP (1000)
